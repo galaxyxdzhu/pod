@@ -1,28 +1,26 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { checkBrowserPlatformIsPc } from '@/utils/common'
+import { mapMutations } from 'vuex'
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  created() {
+    const isPc = checkBrowserPlatformIsPc()
+    this.setPlatform(isPc)
+  },
+  methods: {
+    ...mapMutations({
+      setPlatform: 'common/SET_PLATFORM_STATUS',
+      initPodInfo: 'common/INIT_POD_INFO'
+    })
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
